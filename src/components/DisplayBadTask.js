@@ -1,36 +1,37 @@
-import React from 'react'
+import React from "react";
+import { useSelector } from "react-redux";
 
-const DisplayBadTask = ({taskList, handleOnDelete, switchTask}) => {
-    const badArray = taskList.filter((task) => task.type === "bad");
+const DisplayBadTask = ({ handleOnDelete, switchTask }) => {
+  const { taskList } = useSelector((state) => state.taskList);
+  const badArray = taskList.filter((task) => task.type === "bad");
 
-    return (
-      <table className="table table-striped table-hover border">
-                      <tbody id="bad">
-                      {badArray.map((item, i) => (
-            <tr>
-         <td>{i + 1}</td> 
-          <td>{item.task}</td>
-      <td>{item.hr}</td>
-        <td>
-            <button className="btn btn-sm btn-success"
-             onClick={()=>switchTask(item.id, 'entry')}
-             >
-            <i className="fa-solid fa-arrow-left"></i>
-             </button>
-             <button className="btn btn-sm btn-danger"
-             onClick={()=> handleOnDelete(item.id)}
-          >
-                <i className="fa-solid fa-trash">
-                  
-               </i>
-            </button>
-         </td>
-        </tr>
-  ))}
-                  </tbody>
-                    </table>
-     
-    )
-}
+  return (
+    <table className="table table-striped table-hover border">
+      <tbody id="bad">
+        {badArray.map((item, i) => (
+          <tr>
+            <td>{i + 1}</td>
+            <td>{item.task}</td>
+            <td>{item.hr}</td>
+            <td>
+              <button
+                className="btn btn-sm btn-success"
+                onClick={() => switchTask(item.id, "entry")}
+              >
+                <i className="fa-solid fa-arrow-left"></i>
+              </button>
+              <button
+                className="btn btn-sm btn-danger"
+                onClick={() => handleOnDelete(item.id)}
+              >
+                <i className="fa-solid fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
-export default DisplayBadTask
+export default DisplayBadTask;
