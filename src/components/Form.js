@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setTaskList } from "./DisplayTaskSlice";
 import { useSelector } from "react-redux";
+import PostAxios from "../config/PostAxios";
+// import PostAxios from "../config/postAxios";
 
 const Form = ({ total }) => {
   const [task, setTask] = useState("");
@@ -11,6 +13,7 @@ const Form = ({ total }) => {
   const dispatch = useDispatch();
   const { taskList } = useSelector((state) => state.taskList);
 
+  // const data = [...taskList];
   const handleOnChangeHr = (e) => {
     const { value } = e.target;
     setHr(value);
@@ -25,7 +28,11 @@ const Form = ({ total }) => {
       hr,
       type: "entry",
     };
+
     dispatch(setTaskList([...taskList, obj]));
+
+    // console.log(data);
+    // PostAxios();
 
     const ttl = total;
 
@@ -50,7 +57,7 @@ const Form = ({ total }) => {
   return (
     <>
       <form
-        action=''
+        // method='Post'
         onSubmit={handleOnSubmit}
       >
         <div className='row g-2 mt-5 border  rounded-4 p-3 bg-light shadow-lg'>
@@ -77,7 +84,10 @@ const Form = ({ total }) => {
             />
           </div>
           <div className='col-md-3 d-grid'>
-            <button className='btn btn-primary'>
+            <button
+              className='btn btn-primary'
+              onClick={PostAxios()}
+            >
               <i
                 className='fa-solid fa-plus'
                 style={{ color: "#fcfcfd" }}
