@@ -3,26 +3,33 @@ import Title from "./components/Title";
 import Form from "./components/Form";
 import DisplayTask from "./components/DisplayTask";
 import DisplayBadTask from "./components/DisplayBadTask";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTaskList } from "./components/DisplayTaskSlice";
 
 function App() {
   const { taskList } = useSelector((state) => state.taskList);
+  const dispatch = useDispatch();
 
   const handleOnDelete = (id) => {
     if (window.confirm("Are you sure you want to delete?")) {
-      setTaskList(taskList.filter((item) => id !== item.id));
+      dispatch(setTaskList(taskList.filter((item) => id !== item.id)));
     }
   };
 
   const switchTask = (id, type) => {
     const updatedTaskList = taskList.map((item) => {
       if (item.id === id) {
-        item.type = type;
+        // console.log(type.toString());
+        // item.test = type;
+        return {
+          ...item,
+          type: type,
+        };
       }
       return item;
     });
-    setTaskList(updatedTaskList);
+    // console.log(updatedTaskList);
+    dispatch(setTaskList([...updatedTaskList]));
   };
 
   const total = () => {
@@ -36,15 +43,18 @@ function App() {
   );
 
   return (
-    <div className="wrapper">
-      <div className="container">
+    <div className='wrapper'>
+      <div className='container'>
         {/* <!-- top title  --> */}
         <Title />
         {/* <!-- form area  --> */}
-        <Form setTaskList={setTaskList} total={total} />
+        <Form
+          setTaskList={setTaskList}
+          total={total}
+        />
         {/* <!-- table area  --> */}
-        <div className="row mt-5">
-          <div className="col-md">
+        <div className='row mt-5'>
+          <div className='col-md'>
             <h3>Task Entry List</h3>
             <hr />
 
@@ -54,7 +64,7 @@ function App() {
               switchTask={switchTask}
             />
           </div>
-          <div className="col-md">
+          <div className='col-md'>
             <h3>Bad List</h3>
             <hr />
             <DisplayBadTask
@@ -62,11 +72,11 @@ function App() {
               switchTask={switchTask}
             />
             <p>
-              You could have saved = <span id="badTotal">{badttl}</span> hr
+              You could have saved = <span id='badTotal'>{badttl}</span> hr
             </p>
             {/* <!-- total hours  --> */}
             <div>
-              Total hour per week allocated = <span id="total"> {total()}</span>
+              Total hour per week allocated = <span id='total'> {total()}</span>
               hr
             </div>
           </div>

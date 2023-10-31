@@ -1,26 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  taskList: [
-    {
-      id: 1,
-      task: "watching TV",
-      hr: 4,
-      type: "entry", 
-    },
-  ],
+  taskList: [],
 };
 
 const DisplayTaskSlice = createSlice({
   name: "data",
   initialState,
   reducers: {
-    setTaskList: (state, action) => {
-      state.taskList = [...state.taskList, action.payload];
+    setTaskList: (state, { payload }) => {
+      state.taskList = payload;
     },
+    // setGoodTaskList: (state, { payload }) => {   // this didn't worked
+    //   state.taskList = payload;
+    // },
   },
 });
 
 const { reducer, actions } = DisplayTaskSlice;
-export const { setTaskList } = actions;
+export const { setTaskList, setGoodTaskList } = actions;
 export default reducer;

@@ -6,8 +6,8 @@ const DisplayBadTask = ({ handleOnDelete, switchTask }) => {
   const badArray = taskList.filter((task) => task.type === "bad");
 
   return (
-    <table className="table table-striped table-hover border">
-      <tbody id="bad">
+    <table className='table table-striped table-hover border'>
+      <tbody id='bad'>
         {badArray.map((item, i) => (
           <tr>
             <td>{i + 1}</td>
@@ -15,16 +15,16 @@ const DisplayBadTask = ({ handleOnDelete, switchTask }) => {
             <td>{item.hr}</td>
             <td>
               <button
-                className="btn btn-sm btn-success"
+                className='btn btn-sm btn-success'
                 onClick={() => switchTask(item.id, "entry")}
               >
-                <i className="fa-solid fa-arrow-left"></i>
+                <i className='fa-solid fa-arrow-left'></i>
               </button>
               <button
-                className="btn btn-sm btn-danger"
+                className='btn btn-sm btn-danger'
                 onClick={() => handleOnDelete(item.id)}
               >
-                <i className="fa-solid fa-trash"></i>
+                <i className='fa-solid fa-trash'></i>
               </button>
             </td>
           </tr>
